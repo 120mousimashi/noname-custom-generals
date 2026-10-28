@@ -1964,7 +1964,7 @@ game.import("extension", function(lib, game, ui, get, ai, _status) {
   const { lib, game, get } = context;
   const heng = '翰墨_横槊', jian = '翰墨_建安', marker = 'hanmo_hengshuo';
   const o = () => game.huazhang.ops;
-  let wins = new WeakMap(), pairFrames = new WeakMap(), drawn = new WeakSet(), sequence = 0;
+  let wins = new WeakMap(), pairFrames = new WeakMap(), pairBases = new WeakMap(), drawn = new WeakSet(), sequence = 0;
   const printed = new Map();
   // Native hasSkill -> getSkills defaults applySkillFilter=true, including seals
   // and disabled skills. Do not pass the fourth argument false here.
@@ -1991,11 +1991,50 @@ game.import("extension", function(lib, game, ui, get, ai, _status) {
     return frame;
   }
   function unseenWin(event, player) {
-    if (!active(player) || winnerOf(event) !== player) return null;
+    if (!active(player) || !event || event.result?.cancelled) return null;
     const frame = winFrame(event);
     if (!frame) return null;
+    const participants = event.compareMeanwhile ? [event.player, ...(event.targets || [])] : [event.player, event.target];
+    if (!participants.includes(player)) return null;
+    const winner = winnerOf(event);
+    const count = [...new Set(participants.filter(who => who && who !== player && who !== winner))].length;
+    if (!count) return null;
     const key = o().id(player) + ':' + frame.key;
-    return wins.get(frame.root)?.has(key) ? null : { ...frame, key };
+    return wins.get(frame.root)?.has(key) ? null : { ...frame, key, count };
+  }
+  function measureApplies(event) {
+    if (event?.name !== 'chooseToCompare') return false;
+    return event.compareMeanwhile ? [event.tempplayer || event.player, ...(event.targets || [])].some(active) : [event.player, event.target].some(active);
+  }
+  function nameLength(card, owner) { return get.cardNameLength(card, owner); }
+  function measure(event) {
+    const source = event.tempplayer || event.player;
+    if (event.compareMeanwhile) {
+      // Meanwhile determines maxNum before compareFixing. Rebuild the complete
+      // score vector and unique winner at BOTH timings, so late point modifiers
+      // cannot create bonuses and the native incremental scan stays consistent.
+      const people = [source, ...(event.targets || [])];
+      const cards = [event.card1, ...(event.cardlist || [])];
+      if (cards.length !== people.length || cards.some(card => !card)) return;
+      const scores = cards.map((card, i) => nameLength(card, people[i]));
+      event.num1 = scores[0];
+      if (event.target && event.card2) event.num2 = scores[people.indexOf(event.target)];
+      event.result.num1 = (event.targets || []).map(() => scores[0]);
+      event.result.num2 = scores.slice(1);
+      event.maxNum = Math.max(...scores);
+      const leaders = people.filter((who, i) => scores[i] === event.maxNum);
+      event.winner = leaders.length === 1 ? leaders[0] : null;
+      return;
+    }
+    if (!event.card1 || !event.card2) return;
+    // Multiple reuses num1 across groups. A passive Cao target must not leave
+    // a source name score behind in a later pair he does not participate in.
+    if (event.targets?.length && !active(source) && !pairBases.has(event)) pairBases.set(event, { base: event.num1, measured: nameLength(event.card1, source) });
+    event.num1 = nameLength(event.card1, source);
+    event.num2 = nameLength(event.card2, event.target);
+    if (event.result && !Array.isArray(event.result.num1)) {
+      event.result.num1 = event.num1; event.result.num2 = event.num2;
+    }
   }
   function print(name, nature, player, quota) {
     const token = 'hengshuo-' + (++sequence), spec = { name, cards: [], storage: { [marker]: token } };
@@ -2112,11 +2151,34 @@ game.import("extension", function(lib, game, ui, get, ai, _status) {
         if (!frame) return;
         if (!wins.has(frame.root)) wins.set(frame.root, new Set());
         wins.get(frame.root).add(frame.key); // Reserve before nested writing.
-        await game.huazhang.write(player);
+        for (let i = 0; i < frame.count; i++) {
+          await game.huazhang.write(player);
+          if (o().live(player)) await player.draw(1);
+        }
       },
     },
   };
   const rules = {
+    '翰墨_拼点字数': {
+      charlotte: true, forced: true, silent: true, lastDo: true, priority: -1000000000,
+      trigger: { global: ['compare', 'compareFixing'] },
+      filter: measureApplies,
+      async content(event, trigger) { if (measureApplies(trigger)) measure(trigger); },
+    },
+    '翰墨_拼点字数复原': {
+      charlotte: true, forced: true, silent: true, lastDo: true,
+      trigger: { global: 'compareMultipleAfter' },
+      filter(event) { return event?.name === 'compareMultiple' && pairBases.has(o().scope(event, 'chooseToCompare')); },
+      async content(event, trigger) {
+        const root = o().scope(trigger, 'chooseToCompare');
+        if (!root || !pairBases.has(root)) return;
+        const saved = pairBases.get(root);
+        // Preserve explicit changes an existing pair callback makes after the
+        // winner is settled; only remove our own still-present replacement.
+        if (root.num1 === saved.measured) root.num1 = saved.base;
+        pairBases.delete(root);
+      },
+    },
     '翰墨_拼点逐对': {
       charlotte: true, forced: true, silent: true, firstDo: true, priority: 1000000000,
       trigger: { global: ['chooseToCompareBegin', 'compareFixing'] },
@@ -2150,9 +2212,9 @@ game.import("extension", function(lib, game, ui, get, ai, _status) {
     [heng]: '横槊',
     [heng + '_info']: '出牌阶段限三次，你可以与一名其他角色拼点。拼点及其后续触发结算完毕后，你可以令赢家按其当前手牌数与当前体力值执行一项：大于，视为使用一张不计入次数且无次数限制的【酒】；等于，视为使用一张【决斗】，由其选择一至两名合法目标；小于，视为使用一张由其选择属性且无距离限制的【杀】，此【杀】仍受使用次数限制，其使用此【杀】时将手牌摸至体力上限。赢家须选择合法的牌与目标，无合法选项则跳过。平局无赢家效果。',
     [jian]: '建安',
-    [jian + '_info']: '锁定技，当你拼点胜利后，你书写一篇华章。一对多拼点按每组实际胜利分别书写，共同拼点仅最终赢家书写一次。此技能生效时，你持有外来华章的数量无上限；此技能失效后保留已有华章，新增外来华章恢复通常上限。',
+    [jian + '_info']: '锁定技，你参与的拼点改为比较牌名字数，且本次拼点每有一名其他角色没赢，你书写一篇华章并摸一张牌。你持有华章无数量限制。一对多逐组结算你实际参与的组；共同拼点最高并列时无人赢。牌名字数不受点数修正影响，直接判赢效果仍生效。华章库无可书写篇目仍摸牌；此技能失效后保留已有华章，新增外来华章恢复通常上限。',
   };
-  function reset() { wins = new WeakMap(); pairFrames = new WeakMap(); drawn = new WeakSet(); printed.clear(); }
+  function reset() { wins = new WeakMap(); pairFrames = new WeakMap(); pairBases = new WeakMap(); drawn = new WeakSet(); printed.clear(); }
   return { skills, rules, translate, reset, foreignLimitFor: player => active(player) ? Infinity : undefined };
 })(context)];
   const modules=[(function createFactory(context) {
@@ -3926,7 +3988,7 @@ game.import("extension", function(lib, game, ui, get, ai, _status) {
       card: {card: {}, translate: {}, list: []},
       skill: {skill: formal.skills, translate: formal.skillTranslate},
       intro: "翰墨凝威：文人之威。正式武将威曹丕、威曹植、威曹操，完整收录十位作者70篇华章。自作不限、外来三篇、建安生效时持有不限，免额独立、延时结算后回库。适配无名杀1.11.6单机。",
-      author: "辟境归元", diskURL: "", forumURL: "", version: "1.1.0"
+      author: "辟境归元", diskURL: "", forumURL: "", version: "1.2.0"
     },
     files: {character: ["hm_weicaopi.jpg","hm_weicaozhi.jpg","hm_weicaocao.jpg"], card: [], skill: [], audio: []}
   };
