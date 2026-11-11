@@ -1,8 +1,8 @@
 # 无名杀自制武将扩展
 
-本仓库共收录 **22名不同武将、23个可下载ZIP**。优先提供自制武庙八将合包、辅翼谙计四将合包、翰墨凝威三将合包，以及屈原、隐蕃、李牧、Tibo、达里奥、郑以、孙伊七个独立扩展。合包与单将包中的同一角色只计一次，旧版本也不重复计数。
+本仓库共收录 **40名不同武将、28个可下载ZIP**（含一名书友投稿武将及一个测试工具）。优先提供自制武庙八将合包、辅翼谙计四将合包、翰墨凝威三将合包，以及屈原、隐蕃、李牧、Tibo、达里奥、郑以、孙伊七个独立扩展。合包与单将包中的同一角色只计一次，旧版本也不重复计数。
 
-技能与武将设计由 **辟境归元（GitHub：[@120mousimashi](https://github.com/120mousimashi)）** 完成；代码实现、调试与打包由 **OpenAI Codex（GPT）** 协助完成；武将原画由 **GPT生成、设计者提供**。本项目为玩家自制扩展，并非官方产品。
+自制作品的技能与武将设计由 **辟境归元（GitHub：[@120mousimashi](https://github.com/120mousimashi)）** 完成，原画由 GPT 生成、设计者提供。书友投稿的设计者和原画署名以各作品说明为准。代码实现、调试与打包由 **OpenAI Codex（GPT）** 协助完成。本项目为玩家自制扩展，并非官方产品。
 
 ## 下载
 
@@ -12,6 +12,9 @@
 
 | 扩展 | 当前版本 | 游戏内扩展名称 | 武将及内容 | 状态 | 下载 |
 | --- | --- | --- | --- | --- | --- |
+| 隐山之玉 | 1.0.0 | 隐山之玉 | 郑以、孙伊、诸葛仪、钟忆 | 自动检查通过，合包待实战 | [ZIP](https://github.com/120mousimashi/noname-custom-generals/raw/refs/heads/main/yinshan-zhiyu-v1.0.0.zip) |
+| 玄谍既白 | 1.0.0 | 玄谍既白 | 隐蕃、郭脩、马茂、郭模 | 自动检查通过，合包待实战 | [ZIP](https://github.com/120mousimashi/noname-custom-generals/raw/refs/heads/main/xuandie-jibai-v1.0.0.zip) |
+| 皇庭 | 0.1.0测试版 | 皇庭 | 魏、蜀、吴、晋共十二名 J/Q/K 武将及扑克牌机制 | 自动检查通过，合包待完整实战 | [ZIP](https://github.com/120mousimashi/noname-custom-generals/raw/refs/heads/main/huangting-v0.1.0-test.zip) |
 | 自制武庙 | 1.0.0 | 自制武庙 | 武段颎、武张辽、武周瑜、武吕蒙、武邓艾、武王濬、武羊祜、武杜预；24项主技能 | 23项自动验证通过，待实测反馈 | [ZIP](https://github.com/120mousimashi/noname-custom-generals/raw/refs/heads/main/wumiao-v1.0.0.zip) |
 | 辅翼谙计 | 1.0.0 | 辅翼谙计 | 谋·法正、谋·黄忠、谋夏侯渊、谋赵云 | 四个独立版本已有反馈，合包待实测反馈 | [ZIP](https://github.com/120mousimashi/noname-custom-generals/raw/refs/heads/main/fuyi-anji-v1.0.0.zip) |
 | 翰墨凝威 | 1.2.0测试版 | 翰墨凝威 | 威曹丕、威曹植、威曹操；十位作者的完整70篇华章 | 新版建安待实测反馈 | [ZIP](https://github.com/120mousimashi/noname-custom-generals/raw/refs/heads/main/hanmo-ningwei-v1.2.0-test.zip) |
@@ -22,6 +25,22 @@
 | 达里奥 | 0.1.0测试版 | 达里奥 | 达里奥 | 待实测反馈 | [ZIP](https://github.com/120mousimashi/noname-custom-generals/raw/refs/heads/main/dario-v0.1.0-test.zip) |
 | 郑以 | 0.1.0测试版 | 郑以 | 郑以 | 93项自动验证通过，待实测反馈 | [ZIP](https://github.com/120mousimashi/noname-custom-generals/raw/refs/heads/main/zhengyi-v0.1.0-test.zip) |
 | 孙伊 | 0.1.0测试版 | 孙伊 | 孙伊 | 66项自动验证通过，待实测反馈 | [ZIP](https://github.com/120mousimashi/noname-custom-generals/raw/refs/heads/main/sunyi-v0.1.0-test.zip) |
+
+**合包启用提示：** “隐山之玉”“玄谍既白”“皇庭”与各自的旧单将扩展包含相同角色或技能，选择合包时请关闭重复的单将扩展并重启。钟忆包含觉醒前后双形态原画；皇庭包含十二名武将和对应扑克牌机制。
+
+### 测试工具
+
+| 扩展 | 用途与限制 | 下载 |
+| --- | --- | --- |
+| 全席接管 0.1.2 | 四人身份局本地测试工具；支持操作其他席位，普通身份模式不支持为其他三席手动选将。完整整局及第三方扩展兼容性仍待验证。 | [ZIP](https://github.com/120mousimashi/noname-custom-generals/raw/refs/heads/main/hotseat-control-v0.1.2.zip) |
+
+### 书友投稿
+
+| 扩展 | 作者及原画 | 状态 | 下载 |
+| --- | --- | --- | --- |
+| 魔笮融 | 设计：恭喜我称地；原画署名：KayaK；代码：OpenAI Codex 协助 | 0.1.0 测试版，面向无名杀 1.11.6 单机；自动检查完成，尚未进行完整客户端实战与联机验收 | [ZIP](https://github.com/120mousimashi/noname-custom-generals/raw/refs/heads/main/contributions/mozerong-v0.1.0-test.zip) |
+
+[书友投稿说明](contributions/README.md) · [魔笮融源码与随包说明](source/contributions/mozerong/)
 
 ### 可选：武庙八将的独立包
 
@@ -71,7 +90,7 @@
 
 ## 武将与华章
 
-下表按22名唯一武将列出，体力一栏为“初始体力/体力上限”，不因合包、单将包或原画形态重复计数。
+下表列出此前收录的22名自制武将及新增书友投稿武将；新增三个合包的其余17名武将见[本次更新说明](docs/updates-2026-11-11.md)。体力一栏为“初始体力/体力上限”。
 
 | 所属扩展 | 游戏内武将名 | 势力／性别／体力 | 主技能 |
 | --- | --- | --- | --- |
@@ -97,24 +116,28 @@
 | 达里奥 | 达里奥 | 群／男／4/4 | 封号、申诉 |
 | 郑以 | 郑以 | 群／女／3/3 | 勘文、注典、辨书、守藏 |
 | 孙伊 | 孙伊 | 吴／女／4/4 | 占卦、绍翊 |
+| 书友投稿 | 魔笮融 | 群／男／6/6 | 皈佛、魔宗、佛图；衍生净土、残肆 |
 
-- [22名武将的完整资料与技能说明](docs/characters.md)
+- [22名自制武将的完整资料与技能说明](docs/characters.md)
 - [华章库：十位作者的70篇完整正文](docs/huazhang-library.md)
 - [华章机制与完整结算规则](docs/huazhang-rules.md)
+- [2026-11-11更新：隐山之玉、玄谍既白、皇庭及书友投稿](docs/updates-2026-11-11.md)
 - [2026-10-30更新：武庙、郑以、孙伊及验证范围](docs/updates-2026-10-30.md)
 - [2026-10-28更新记录](docs/updates-2026-10-28.md)
-- [所有23个下载包的SHA-256校验值](SHA256SUMS.txt)
+- [所有28个下载包的SHA-256校验值](SHA256SUMS.txt)
 
 华章以文人真实作品命名。书写时从当前可获得的剩余篇目中随机抽至多三篇并选择一篇；有可获得的自作时至少包含一篇自作。每篇全场同时只能存在一份。自作通常不限，普通外来华章最多三篇且不能替换；建安生效时可以突破外来上限。华章通常等效果及其延时部分完全结算后才回库，具体例外和阵亡继承见规则文档。
 
 ## 源码与授权
 
-[`source/`](source/)保存全部23个下载包对应的可读运行源码、版本信息和随包说明。各目录的`extension.js`与对应ZIP内文件逐字节一致，完整立绘等运行素材在安装ZIP中；当前版本与保留的旧版分目录保存。
+[`source/`](source/)保存全部28个下载包对应的可读运行源码、版本信息和随包说明。各目录的`extension.js`与对应ZIP内文件逐字节一致，完整立绘等运行素材在安装ZIP中；当前版本与保留的旧版分目录保存。
 
 [`source/wumiao/`](source/wumiao/)对应自制武庙八将合包，八个武庙单将仍各有独立源码目录；[`source/fuyi-anji/`](source/fuyi-anji/)对应辅翼谙计四将合包，其四个独立包也分别保留。郑以与孙伊分别见[`source/zhengyi/`](source/zhengyi/)、[`source/sunyi/`](source/sunyi/)。[`source/hanmo/`](source/hanmo/)对应当前翰墨1.2.0，[`source/hanmo-v1.1.0/`](source/hanmo-v1.1.0/)保留1.1.0旧版。
 
-翰墨凝威公开包保留测试成品的运行代码、版本信息、三张游戏立绘、完整华章库和规则。其余下载包保留已验证成品的原始ZIP字节。自制武庙统一合包资源路径与注册，八张原画按单将包原始JPEG字节保留；郑以、孙伊采用本次提供的新原画，仅转换图片格式，不裁切、缩放或重绘。
+全席接管公开包仅泛化了随包测试报告中的本机路径，运行代码与原包一致；其余本次新增包保留原始 ZIP。
 
-本项目的**原创扩展代码**采用[MIT许可证](LICENSE)。参考或改写的无名杀本体及第三方代码仍适用各自原有许可，参见[无名杀项目及其许可证](https://github.com/libccy/noname/blob/master/LICENSE)。武将技能与设定文字由辟境归元设计，原画由GPT生成并由设计者提供，二者单独注明，MIT代码许可不自动涵盖它们。
+翰墨凝威公开包保留测试成品的运行代码、版本信息、三张游戏立绘、完整华章库和规则。除上述全席接管公开包外，其余下载包保留成品的原始ZIP字节。自制武庙统一合包资源路径与注册，八张原画按单将包原始JPEG字节保留；郑以、孙伊采用本次提供的新原画，仅转换图片格式，不裁切、缩放或重绘。
+
+本仓库自制作品的**原创扩展代码**采用[MIT许可证](LICENSE)。书友投稿单独注明来源；其设计文字、原画和代码的许可须以投稿作品明确标注或权利人授权为准，不能默认套用自制作品的许可。参考或改写的无名杀本体及第三方代码仍适用各自原有许可，参见[无名杀项目及其许可证](https://github.com/libccy/noname/blob/master/LICENSE)。自制作品的武将技能与设定文字由辟境归元设计，原画由GPT生成并由设计者提供，二者单独注明，MIT代码许可不自动涵盖它们。
 
 欢迎在GitHub Issues提供复现步骤、本体版本、扩展组合、预期与实际结果；报错时请附完整堆栈。

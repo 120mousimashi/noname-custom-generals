@@ -21,3 +21,8 @@ c94b65009d99c8c4dceec9b157e19f132a2f4e6200f84d567a94fc61d0bfb2b3  wumiao-v1.0.0.
 04b45959db3be49c8bbb4ff8bfdfc94b45eadbaa4b67535f42e20ba092430514  wuzhouyu-v0.1.0-test.zip
 cf853b564ed249403283481ff9ee963a68e6fd9ee63e1fefc71741eef09277a8  yinfan-v1.0.0.zip
 3a4f3ad6ad13f99f6d92bbab8a37e7df9cea715a888ef7e43711889fef25f19c  zhengyi-v0.1.0-test.zip
+a2982b8cc824a1cea52efaf8d6b8a251ed785d13814d19e7ed0a4346cb07dcea  contributions/mozerong-v0.1.0-test.zip
+f68c2e2aa502a38f291ed8fb946b1a168824fb4e5d92d75ebf126f43f13b1a5b  yinshan-zhiyu-v1.0.0.zip
+05299f5d854fbe946dd96b136e03c64494fb60236d3c1825cae827f039375e66  xuandie-jibai-v1.0.0.zip
+1f1b9e127857e69a8cfc0cbeff2459194da23f298ba0c35a75d8e05bffe74ad5  huangting-v0.1.0-test.zip
+ec85da31f4a7c61aa6673f1fa391eae7b360065df0f45fc4850d17521f92bc74  hotseat-control-v0.1.2.zip
